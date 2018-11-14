@@ -1,0 +1,5 @@
+package payu
+
+func Validate() {
+
+}

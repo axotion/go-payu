@@ -2,6 +2,6 @@ package payu
 
 type requestInterface interface {
 	getPath() string
-	getData() interface{}
+	getData() []byte
 	getMethod() string
 }

@@ -1,7 +1,9 @@
 package payu
 
 import (
+	"bytes"
 	"net/http"
+	"time"
 )
 
 type buildInClient struct {
@@ -10,7 +12,7 @@ type buildInClient struct {
 }
 
 func NewHttpClient(accessToken string) httpClientInterface {
-	client := &http.Client{}
+	client := &http.Client{Timeout: time.Second * 10}
 	return &buildInClient{accessToken: accessToken, client: client}
 }
 
@@ -19,5 +21,14 @@ func (client *buildInClient) SetAuthorization(accessToken string) {
 }
 
 func (client buildInClient) DoRequest(request requestInterface) interface{} {
+
+	httpRequest, err := http.NewRequest(request.getMethod(), request.getPath(), bytes.NewBuffer(request.getData()))
+
+	if err != nil {
+		panic(err)
+	}
+
+	resp, err := client.client.Do(httpRequest)
+
 	return nil
 }

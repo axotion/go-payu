@@ -31,6 +31,10 @@ func (api *api) CreateOrder(orderDto createOrderDto) (string, error) {
 	return "", nil
 }
 
+func (api *api) RefundAmount(externalOrderID string, amount int) error {
+	return nil
+}
+
 func (api *api) ValidateWebhook(data map[string]string) error {
 	return nil
 }
